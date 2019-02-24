@@ -1,0 +1,17 @@
+<h1>This is the index page</h1>
+
+
+<% blogs.forEach((blog) => { %>
+<div>
+
+    <h2>
+        <%= blog.title %>
+        <img src = "<%=blog.image%>" > 
+        <span><%= blog.create %></span>
+        <p> <%= blog.body %></p>   
+
+    </h2>
+
+</div>
+
+<%}) %>  
