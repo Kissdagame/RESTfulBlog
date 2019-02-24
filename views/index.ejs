@@ -1,3 +1,5 @@
+<% include ./partials/header %>
+
 <h1>This is the index page</h1>
 
 
@@ -6,7 +8,7 @@
 
     <h2>
         <%= blog.title %>
-        <img src = "<%=blog.image%>" > 
+        <img src= "<%=blog.image%>" > 
         <span><%= blog.create %></span>
         <p> <%= blog.body %></p>   
 
@@ -15,3 +17,5 @@
 </div>
 
 <%}) %>  
+
+<% include ./partials/footer %>
