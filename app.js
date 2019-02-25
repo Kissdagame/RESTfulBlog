@@ -95,6 +95,19 @@ app.put("/blogs/:id", (req, res) => {
     });
 });
 
+// Delete Route
+app.delete("/blogs/:id", (req, res) => {
+    // destroys blog
+    Blog.findByIdAndRemove(req.params.id, (err) => {
+        if (err) {
+            res.redirect("/blogs");
+        } else {
+            res.redirect("/blogs");
+        }
+    });
+
+    // redirects somewhere
+});
 
 //starts sever for the blog app
 app.listen(3000, () => {
