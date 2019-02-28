@@ -3,13 +3,14 @@ const express = require("express"),
     app = express(),
     mongoose = require("mongoose"),
     bodyParser = require("body-parser"),
-    methodOverride = require("method-override");
-
+    methodOverride = require("method-override"),
+    expressSanitizer = require('express-sanitizer');
 // App Config
 //connects to the mongodb server 
 mongoose.connect("mongodb://localhost/restful_blog_app", { useNewUrlParser: true });
 //telling express to use body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressSanitizer());
 // allows ejs file to work without needing the file ext
 app.set("view engine", "ejs");
 
@@ -51,6 +52,7 @@ app.get("/blogs/new", (req, res) => {
 // Create Route
 app.post("/blogs", (req, res) => {
     // Create Blogs
+    req.body.blog.body = req.sanitize(req.body.blog.body);
     Blog.create(req.body.blog, (err, newBlog) => {
         if (err) {
             res.render("new");
@@ -86,6 +88,7 @@ app.get("/blogs/:id/edit", (req, res) => {
 
 // Update Route
 app.put("/blogs/:id", (req, res) => {
+    req.body.blog.body = req.sanitize(req.body.blog.body);
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedBlog) => {
         if (err) {
             res.redirect("/blogs");
